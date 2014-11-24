@@ -2,6 +2,10 @@ from django.http import HttpResponse, Http404
 from django.utils import simplejson
 import models
 
+import logging
+logger = logging.getLogger('scipycentral')
+logger.debug('Initializing submission::views.create.py')
+
 from scipy_central.screenshot.forms import ScreenshotForm
 
 def add_screenshot(request):
@@ -22,14 +26,16 @@ def add_screenshot(request):
         try:
           img = models.Screenshot(img_file_raw=img_form.\
                                                 cleaned_data['spc_image_upload'])
+          logger.debug("Before Save:: " + img.img_file_raw.path)
           img.save()
           msg = ('Upload successful. Insert the image in your description as'
                  '&nbsp;&nbsp;&nbsp; <tt>:image:`%s`</tt><br>'
                  '<br>'
                  '<i>Want a smaller image? e.g. scaled down to 40%%:</i> '
                  '&nbsp;<tt>:image:`%s;40`</tt><br>') %\
-                              (img.img_file_raw.name.partition('/')[2],
-                               img.img_file_raw.name.partition('/')[2])
+                              (img.img_file.name.partition('/')[2],
+                               img.img_file.name.partition('/')[2])
+          logger.debug("After save: " + img.img_file_raw.name)
         except Exception, e:
           msg = 'Error on server, please try again \n' + str(e)
 
