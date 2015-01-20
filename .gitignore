@@ -12,6 +12,6 @@
 
 # staticfiles 
 /deploy/data
-
+/deploy/media
 # local settings
 /deploy/local_settings.py
