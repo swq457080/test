@@ -9,6 +9,7 @@
 /dist
 /MANIFEST
 /deploy/env
+/deploy/settings.py
 
 # staticfiles 
 /deploy/data
