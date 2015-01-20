@@ -12,6 +12,7 @@ static_items = {'spc-main-page': 1,
                 'spc-about-licenses': 3,
                 'spc-markup-help': 4,
                 'haystack_search': 5,
+                'spc-services-page': 6,
                }
 
 def create_hit(request, item, extra_info=None):

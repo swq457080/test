@@ -28,7 +28,8 @@ def user_logged_in(user, **kwargs):
     """
     Triggered when the user signs in.
     """
-    logger.debug('User logged in: %s' % user.username)
+    logger.debug("logging in")
+    #logger.debug('User logged in: %s' % user.username)
 
 @login_required
 def profile_page_edit(request, slug):

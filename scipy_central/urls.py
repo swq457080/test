@@ -1,4 +1,6 @@
 from django.conf.urls.defaults import url, include, patterns
+from django.conf.urls.static import static
+from django.conf import settings
 urlpatterns = patterns('scipy_central',
 
     # NOTE: internal name for front page (defined in scipy_central.pages.urls)
@@ -32,6 +34,10 @@ urlpatterns = patterns('scipy_central',
 
     # comments
     (r'^comments/', include('scipy_central.comments.urls')),
-)
+) + static("/media/", document_root=settings.MEDIA_ROOT)
 from django.conf import settings
 settings.LOGIN_REDIRECT_URL = '/user/profile/'
+
+
+
+

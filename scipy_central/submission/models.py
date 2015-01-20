@@ -182,7 +182,7 @@ class Revision(models.Model):
 
     # user-provided submission title.
     title = models.CharField(max_length=150, 
-        verbose_name='Provide a title for your submission')
+        verbose_name='Title for your submission')
 
     # auto-created slug field
     slug = models.SlugField(max_length=155, editable=False)

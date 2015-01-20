@@ -8,6 +8,8 @@ from scipy_central.pagehit.views import create_hit
 
 from haystack.views import SearchView
 
+from django.conf import settings
+
 import logging
 logger = logging.getLogger('scipycentral')
 logger.debug('Initializing pages::views.py')
@@ -17,16 +19,21 @@ def front_page(request):
     return render_to_response('pages/front-page.html', {},
                               context_instance=RequestContext(request))
 
+def services_page(request):
+    create_hit(request, 'spc-services-page')
+    return render_to_response('pages/services-page.html', settings.HTML_DIC,
+                              context_instance=RequestContext(request))
+
 
 def about_page(request):
     create_hit(request, 'spc-about-page')
-    return render_to_response('pages/about-page.html', {},
+    return render_to_response('pages/about-page.html', settings.HTML_DIC,
                               context_instance=RequestContext(request))
 
 
 def licence_page(request):
     create_hit(request, 'spc-about-licenses')
-    return render_to_response('pages/about-licenses.html', {},
+    return render_to_response('pages/about-licenses.html', settings.HTML_DIC,
                               context_instance=RequestContext(request))
 
 

@@ -6,6 +6,9 @@ urlpatterns = patterns('scipy_central.pages.views',
     url(r'^$', 'front_page', name='spc-main-page'),
 
     # About page
+    url(r'services', 'services_page', name='spc-services-page'),
+    
+    # About page
     url(r'about', 'about_page', name='spc-about-page'),
 
     # About licences

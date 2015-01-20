@@ -1,4 +1,4 @@
-Thank you for creating an account at http://scipy-central.org with this email
+Thank you for creating an account at Open BioTech with this email
 address.
 
 You must activate your account within {{expiration_days}} days, otherwise
@@ -7,9 +7,9 @@ any submissions you have created on the site will be removed.
 IMPORTANT: please read before clicking the link below
 =========
 
-By activating your account on SciPy Central, you
+By activating your account on Open BioTech, you
 
-* agree to only submit code you wrote yourself, or for which you have the legal
+* agree to only submit protocol you developed yourself, or for which you have the legal
   rights to release;
 * recognize that other users can freely edit your code to make improvements
   (you will always be credited as the original submitter though);
@@ -21,10 +21,10 @@ By activating your account on SciPy Central, you
 * and we ask that you don't submit offensive, malicious or destructive code.
 
 If you agree with these terms, please activate your account:
-http://scipy-central.org/user/activate/{{activation_key}}
+http://openclover.pythonanywhere.com//user/activate/{{activation_key}}
 
 Thank you,
-The SciPy Central team.
+The Open BioTech team.
 -----
 
 If you did not create an account on our website, it's because someone used your

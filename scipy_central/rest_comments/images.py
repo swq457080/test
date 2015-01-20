@@ -15,6 +15,8 @@ BSD licensed: see http://sphinx.pocoo.org/latest/
 """
 import re, os
 from docutils import nodes, utils
+import logging
+logger = logging.getLogger('scipycentral')
 
 def make_link_role(base_url, app):
     def role(typ, rawtext, text, lineno, inliner, options=None, content=None):
@@ -29,8 +31,12 @@ def make_link_role(base_url, app):
             # height. Also, not greater than 100%
             specs['scaling'] = max(15.0, min(100, specs['scaling']))
 
-        img_dir = os.path.join(app.env.config.SPC['resized_image_dir'], os.pardir)
+        #img_dir = os.path.join(app.env.config.SPC['resized_image_dir'], os.pardir)
+        img_dir = os.path.join(app.env.config.SPC['MEDIA_ROOT'], "images")
         img_file = os.path.join(img_dir, text_part[0])
+        logger.debug("pardir:" + os.pardir)
+        logger.debug("img_dir:" + img_dir)
+        logger.debug("img_file:" + img_file)
         img_obj = app.env.config.SPC['__Screenshot__'].objects.\
                                                      filter(img_file=img_file)
 
@@ -66,6 +72,7 @@ def make_link_role(base_url, app):
 
 def setup_link_roles(app):
     for name, base_url in app.config.ext_images.iteritems():
+        logger.debug("link: " + name + " : " + base_url)
         app.add_role(name, make_link_role(base_url, app))
 
 def setup(app):

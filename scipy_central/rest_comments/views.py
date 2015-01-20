@@ -31,12 +31,14 @@ def setup_compile_dir(compile_dir):
     places. The original copy of the ``conf.py`` file, found in the
     current directory (copy it to comment destination)
     """
-
+    logger = logging.getLogger('scipycentral')
+    logger.debug("In setup" + compile_dir)
     if Site._meta.installed:
         site = Site.objects.get_current().domain
     else:
         site = ''
 
+    logger.debug("site:" + site)
     module_dir = os.path.dirname(__file__)
 
     ext_dir = os.path.abspath(os.path.join(compile_dir, 'ext'))
@@ -49,13 +51,17 @@ def setup_compile_dir(compile_dir):
     with file(conf_template_file, 'r') as f:
         conf_template = template.Template(f.read())
 
+    logger.debug("MEDIA_URL: " + settings.MEDIA_URL)
+    logger.debug("MEDIA_ROOT: " + settings.MEDIA_ROOT)
+    logger.debug("http: " + str(settings.MEDIA_URL.startswith('http')))
     if settings.MEDIA_URL.startswith('http'):
         conf = conf_template.render(template.Context({'FULL_MEDIA_URL':
                                                       settings.MEDIA_URL}))
     else:
         conf = conf_template.render(template.Context({'FULL_MEDIA_URL':
                                                       site + settings.MEDIA_URL}))
-
+    logger.debug("site:" + site)
+    logger.debug("conf:" + conf_file)
     with file(conf_file, 'w') as f:
         f.write(conf)
 
@@ -225,9 +231,14 @@ def compile_rest_to_html(raw_rest):
     ensuredir(settings.SPC['comment_compile_dir'])
     compile_dir = tempfile.mkdtemp(dir=settings.SPC['comment_compile_dir'])
     try:
+        logger.debug("MEDIA_URL: " + settings.MEDIA_URL)
+        logger.debug("MEDIA_ROOT: " + settings.MEDIA_ROOT)
+        logger.debug('Before setup: ')
         setup_compile_dir(compile_dir)
-        logger.debug('SPHINX: ' + raw_rest)
+        #logger.debug('SPHINX: ' + raw_rest)
         modified_rest = sanitize_raw_rest(raw_rest)
+        logger.debug('SPHINX after modify: ' + modified_rest)
+        #logger.debug('compile_dir: ' + compile_dir)
         with open(os.path.join(compile_dir, 'index.rst'), 'w') as fh:
             fh.write(modified_rest)
 
@@ -238,6 +249,7 @@ def compile_rest_to_html(raw_rest):
         with open(pickle_f, 'rb') as fhand:
             obj = pickle.load(fhand)
     finally:
+        #logger.debug("Compile dir" + compile_dir)
         shutil.rmtree(compile_dir)
 
     return obj['body'].encode('utf-8')

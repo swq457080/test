@@ -6,7 +6,9 @@ import os, sys
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 
-sys.path.insert(0, os.path.join(BASE_DIR, os.pardir))
+
+sys.path.insert(0, os.path.abspath(os.path.join(BASE_DIR, os.pardir)))
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -58,7 +60,8 @@ MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
+MEDIA_URL = 'http://127.0.0.1:9999/media/'
+#MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -180,6 +183,8 @@ REGISTRATION_OPEN = True    # permit users to create new accounts
 CSRF_FAILURE_VIEW = 'scipy_central.pages.views.csrf_failure'
 
 
+HTML_DIC = {'project_name': 'openBioTech', 'project_site': 'http://openclover.pythonanywhere.com/', 'email': 'openclover@gmail.com'}
+
 # These settings define and modify the behaviour of the entire website.
 # SciPy Central = SPC.
 SPC = {
@@ -209,7 +214,7 @@ SPC = {
     # the maximum width or height.
     'raw_image_dir': 'raw-images/%Y%m',
     'resized_image_dir': 'images/%Y%m',
-
+    'MEDIA_ROOT': os.path.join(DATA_DIR, 'media'),
     # Where should logfiles be written? If DEBUG != True, then you are
     # responsible that this location is valid and exists. Overwrite the
     # location in ``local_settings.py`` below.
@@ -223,7 +228,7 @@ SPC = {
     'license_filename': 'LICENSE.TXT',
 
     # Short link URL root (must end with a trailing slash).
-    'short_URL_root': 'http://scpyce.org/',
+    'short_URL_root': HTML_DIC['project_site'],
 
     # Page hit horizon in days. Lists of views are sorted by the number of page
     # views over the past NNN days (the horizon).
@@ -315,6 +320,9 @@ LOGGING = {
 # The default variables that are expected are listed in the ``ImportError``
 # part of the exception below.
 
+HTML_DIC = {'project_name': 'openBioTech', 'project_site': 'http://openclover.pythonanywhere.com/', 'email': 'openclover@gmail.com'}
+
+
 try:
     execfile(os.path.join(BASE_DIR, 'local_settings.py'))
 except IOError:
@@ -336,3 +344,6 @@ except IOError:
     ANALYTICS_SNIPPET = ''
 
     # You can also overwrite keys from ``SPC`` in the ``local_settings.py`` file
+
+
+

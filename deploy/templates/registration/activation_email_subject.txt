@@ -1,1 +1,1 @@
-SciPy Central account: {{expiration_days}} days to activate your account
+Open BioTech account: {{expiration_days}} days to activate your account
