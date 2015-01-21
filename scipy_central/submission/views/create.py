@@ -21,6 +21,7 @@ from scipy_central.submission import forms, models, storage
 import logging
 
 logger = logging.getLogger('scipycentral')
+logger.setLevel(logging.DEBUG)
 logger.debug('Initializing submission::views.create.py')
 
 def email_after_submission(instance):
@@ -28,40 +29,49 @@ def email_after_submission(instance):
     Send email notifications to created user and admin
     for new/ edited submissions
     """
+    
     if not isinstance(instance, models.Revision):
         raise TypeError('Revision object should be passed as argument')
-
+    
+    
     email_context = {
         'user': instance.created_by,
         'item': instance,
         'site': Site.objects.get_current()
     }
 
+    #import ipdb; ipdb.set_trace()
+    domain_name = Site.objects.get_current().name
+    
     # signed in users
     if instance.is_displayed:
         message = render_to_string('submission/email_user_thanks.txt',
                                    email_context)
+        logger.debug('Signed user')
     else:
         # if user registered but not signed in
         if instance.created_by.profile.is_validated:
             message = render_to_string(
                 'submission/email_validated_user_unvalidated_submission.txt',
                 email_context)
-
+            logger.info('unsigned user')
         # unknown users
         else:
             message = render_to_string(
                 'submission/email_unvalidated_user_unvalidated_submission.txt',
                 email_context)
+            logger.debug('unknown user')
 
     # email submitted user
     send_email((instance.created_by.email,), ('Thank you for your contribution to '
-                                              'SciPy Central'), message=message)
+                                              '%s'%domain_name), message=message)
 
     # email admin
+    #import ipdb; ipdb.set_trace()
+    #The message is empty, so the email will not be sent
     message = render_to_string('submission/email_website_admin.txt')
     send_email((settings.SERVER_EMAIL,), ('A new/edited submission '
-                                          'was made on SciPy Central'),
+                                          'was made on %s' % domain_name),
                message=message)
 
 class BaseSubmission(FormView):

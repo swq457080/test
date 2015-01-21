@@ -11,14 +11,17 @@ from django.utils.feedgenerator import Atom1Feed
 from scipy_central import submission
 from scipy_central.submission.models import Submission, Revision
 from scipy_central.tagging.models import Tag
+from django.contrib.sites.models import Site
+
 
 class RssSiteFeed(Feed):
-    title = "Recent Submissions - Scipy Central"
+    site = Site.objects.get_current()
+    title = "Recent Submissions - %s" % site.name
     link = "/item/show/all-revisions/"
     feed_url = '/feeds/'
-    description = "Most recent 30 submissions from Scipy Central"
+    description = "Most recent 30 submissions from %s" % site.name
     description_template = "feeds/item_description.html"
-    feed_copyright = 'Please visit http://scipy-central.org/licenses link of SciPy Central Website'
+    feed_copyright = 'Please visit %s/licenses link of %s Website' % (site.domain, site.name)
 
     def items(self):
         return Revision.objects.filter(is_displayed=True).order_by('-date_created')[:30]
@@ -53,7 +56,8 @@ class RssSubmissionFeed(RssSiteFeed):
         # all revisions have same title. so, doesn't matter which element we take.
         # Each Submission has at least 1 revision (the latest one),
         rev_obj = obj.revisions.all()[0]
-        return '%s - SciPy Central' % rev_obj.title
+        site = Site.objects.get_current()
+        return '%s - %s' % (rev_obj.title, site.name)
 
     def feed_url(self, obj):
         return '/feeds/%d/' % obj.pk
@@ -69,7 +73,8 @@ class RssTagFeed(RssSiteFeed):
         return get_object_or_404(Tag, slug=slugify(tag_slug))
 
     def title(self, obj):
-        return 'Recent 30 %s Submissions - SciPy Central' % obj.slug
+        site = Site.objects.get_current()
+        return 'Recent 30 %s Submissions - %s' % (obj.slug, site.name)
 
     def link(self, obj):
         return '/item/tag/%s/' % obj.slug

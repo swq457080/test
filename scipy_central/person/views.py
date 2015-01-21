@@ -14,6 +14,8 @@ from scipy_central.rest_comments.views import compile_rest_to_html
 from scipy_central.utils import paginated_queryset, send_email
 from scipy_central.tagging.views import get_and_create_tags
 from scipy_central.pagehit.views import create_hit
+from django.contrib.sites.models import Site
+
 
 import models
 import forms
@@ -90,7 +92,8 @@ def profile_page_edit(request, slug):
                 message = render_to_string(\
                               'person/email_about_changed_email_address.txt',
                               ctx_dict)
-                send_email((previous_email,), ("SciPy Central: change of "
+                site = Site.objects.get_current()
+                send_email((previous_email,), ("%s: change of " % site.name,
                                         "email address"), message=message)
 
 
@@ -149,10 +152,11 @@ def profile_page(request, slug=None, user_id=None):
     all_revs = Revision.objects.all().filter(created_by=the_user)\
                                                     .order_by('-date_created')
 
+    site = Site.objects.get_current()
     if the_user == request.user:
-        no_entries = 'You have not submitted any entries to SciPy Central.'
+        no_entries = 'You have not submitted any entries to %s.' % site.name
     else:
-        no_entries = 'This user has not submitted any entries to SciPy Central.'
+        no_entries = 'This user has not submitted any entries to %s.' % site.name
 
     permalink = settings.SPC['short_URL_root'] + 'user/' + str(the_user.id) + '/'
 

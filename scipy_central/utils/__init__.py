@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 import re, os, errno, logging
 logger = logging.getLogger('scipy_central')
-
+logger.setLevel(logging.DEBUG)
 rest_help_extra = """Use <a href="http://sphinx.pocoo.org/latest/rest.html">reStructuredText</a>.
 <ul>
     <li>Use linebreaks between paragraphs</li>
@@ -116,9 +116,10 @@ def send_email(to_addresses, subject, message, from_address=None):
     Let Django send the message; it takes care of opening and closing the
     connection, as well as locking for thread safety.
     """
+    
     if from_address is None:
         from_address = settings.SERVER_EMAIL
-
+        
     if subject and message and from_address:
         try:
             send_mail(subject, message, from_address, to_addresses,

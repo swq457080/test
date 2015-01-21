@@ -201,8 +201,10 @@ class SubmissionStorage(object):
 
         # add license file
         license_text = self.__get_license_text()
+        from django.contrib.sites.models import Site
+        site = Site.objects.get_current()
         self.object.entry.fileset.add_file_from_string(settings.SPC['license_filename'],
-                                                       license_text, user='SciPy Central',
+                                                       license_text, user=site.name,
                                                        commit_msg='SPC: add/update license file')
 
         # log info
@@ -227,8 +229,10 @@ class SubmissionStorage(object):
 
         # commit license file
         license_text = self.__get_license_text()
+        from django.contrib.sites.models import Site
+        site = Site.objects.get_current()
         self.object.entry.fileset.add_file_from_string(settings.SPC['license_filename'],
-                                                       license_text, user='SciPy Central',
+                                                       license_text, user=site.name,
                                                        commit_msg='SPC: add/update license file')
 
         

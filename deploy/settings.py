@@ -327,11 +327,15 @@ try:
     execfile(os.path.join(BASE_DIR, 'local_settings.py'))
 except IOError:
     # See https://docs.djangoproject.com/en/1.3/ref/settings for EMAIL settings
-    EMAIL_HOST = ''
-    EMAIL_HOST_USER = ''
-    EMAIL_HOST_PASSWORD = ''
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = '/homed/home/shi/python/web/openBioTech/email.log' # change this to a proper location
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = 'clover.open@gmail.com'
+    EMAIL_HOST_PASSWORD = 'clover2015'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
     # Visitors will receive email from this address e.g. "admin@example.org"
-    SERVER_EMAIL = ''
+    SERVER_EMAIL = 'clover.open@gmail.com'
     DEFAULT_FROM_EMAIL = SERVER_EMAIL
 
     # Where should JQuery be served from?
