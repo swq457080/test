@@ -1,6 +1,6 @@
 {{user.username}}
 
 Thanks for contribution to {{site.name}} with the title: "{{item.title}}"
-http://{{site.domain}}{{item.get_absolute_url}}
+{{site.domain}}{{item.get_absolute_url}}
 
 The {{site.name}} team.

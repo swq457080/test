@@ -5,7 +5,7 @@ Thanks for contribution to {{site.name}} with the title: "{{item.title}}"
 Unfortunately you were not signed in when creating the submission. To ensure
 that it was actually you, please click on the link below to confirm your
 submission.
-http://{{site.domain}}/item/validate/{{item.validation_hash}}/
+{{site.domain}}/item/validate/{{item.validation_hash}}/
 
 The {{site.name}} team.
 ---
