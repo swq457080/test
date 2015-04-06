@@ -1,4 +1,4 @@
-Thank you for creating an account at Open BioTech with this email
+Thank you for creating an account at PubLab with this email
 address.
 
 You must activate your account within {{expiration_days}} days, otherwise
@@ -7,7 +7,7 @@ any submissions you have created on the site will be removed.
 IMPORTANT: please read before clicking the link below
 =========
 
-By activating your account on Open BioTech, you
+By activating your account on PubLab, you
 
 * agree to only submit protocol you developed yourself, or for which you have the legal
   rights to release;
@@ -24,7 +24,7 @@ If you agree with these terms, please activate your account:
 http://openclover.pythonanywhere.com//user/activate/{{activation_key}}
 
 Thank you,
-The Open BioTech team.
+The PubLab team.
 -----
 
 If you did not create an account on our website, it's because someone used your

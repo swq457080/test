@@ -1,1 +1,1 @@
-Open BioTech account: {{expiration_days}} days to activate your account
+PubLab account: {{expiration_days}} days to activate your account

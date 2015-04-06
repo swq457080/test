@@ -34,7 +34,7 @@ def validate_superuser(app, created_models, verbosity, **kwargs):
         from django.contrib.sites.models import Site
         site = Site.objects.get_current()
         if site.name == 'example.com':
-            site.name = 'Open BioTech'
+            site.name = 'PubLab'
             site.domain = '127.0.0.1:9999'
             site.save()
 
